@@ -137,14 +137,14 @@ function collisionDetection() {
             }
             // Increase ball speed for difficulty
             if (ball.dx > 0) {
-              ball.dx += 0.3;
+              ball.dx += 0.125;
             } else {
-              ball.dx -= 0.3;
+              ball.dx -= 0.125;
             }
             if (ball.dy > 0) {
-              ball.dy += 0.3;
+              ball.dy += 0.125;
             } else {
-              ball.dy -= 0.3;
+              ball.dy -= 0.125;
             }
             document.getElementById("score").textContent = "Score: " + score;
             if (score === brickRowCount * brickColumnCount) {
