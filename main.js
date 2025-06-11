@@ -41,7 +41,7 @@ let animationId = null;
 
 // スコア・ライフ
 let score = 0;
-let lives = 3;
+let lifes = 3;
 
 // キー操作
 let rightPressed = false;
@@ -109,6 +109,17 @@ function collisionDetection() {
 
           b.status = 0;
           score++;
+          // Increase ball speed for difficulty
+          if (dx > 0) {
+            dx += 0.3;
+          } else {
+            dx -= 0.3;
+          }
+          if (dy > 0) {
+            dy += 0.3;
+          } else {
+            dy -= 0.3;
+          }
           document.getElementById("score").textContent = "Score: " + score;
           if (score === brickRowCount * brickColumnCount) {
             alert("クリア！おめでとうございます！");
@@ -176,9 +187,9 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     } else if (y + dy > canvas.height - ballRadius) {
-      lives--;
-      document.getElementById("lives").textContent = "Lives: " + lives;
-      if (!lives) {
+      lifes--;
+      document.getElementById("lifes").textContent = "Lifes: " + lifes;
+      if (!lifes) {
         alert("ゲームオーバー");
         document.location.reload();
       } else {
@@ -219,7 +230,7 @@ function drawWaiting() {
 function startGame() {
   isPlaying = true;
   score = 0;
-  lives = 3;
+  lifes = 3;
   x = canvas.width / 2;
   y = canvas.height - 30;
   dx = 3;
@@ -227,7 +238,7 @@ function startGame() {
   paddleX = (canvas.width - paddleWidth) / 2;
   resetBricks();
   document.getElementById("score").textContent = "Score: " + score;
-  document.getElementById("lives").textContent = "Lives: " + lives;
+  document.getElementById("lifes").textContent = "Lifes: " + lifes;
   if (startBtn) startBtn.style.display = "none";
   draw();
 }
