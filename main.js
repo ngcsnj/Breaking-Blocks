@@ -155,6 +155,11 @@ function drawBricks() {
 }
 
 function draw() {
+  console.log("draw called", isPlaying);
+  if (!isPlaying) {
+    drawWaiting();
+    return;
+  }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
   drawBall();
@@ -198,6 +203,31 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
+
 // 初期表示
 if (startBtn) startBtn.style.display = "inline-block";
 drawWaiting();
+
+function drawWaiting() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "24px Arial";
+  ctx.fillStyle = "#333";
+  ctx.textAlign = "center";
+  ctx.fillText("ゲーム開始ボタンを押してください", canvas.width / 2, canvas.height / 2);
+}
+
+function startGame() {
+  isPlaying = true;
+  score = 0;
+  lives = 3;
+  x = canvas.width / 2;
+  y = canvas.height - 30;
+  dx = 3;
+  dy = -3;
+  paddleX = (canvas.width - paddleWidth) / 2;
+  resetBricks();
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("lives").textContent = "Lives: " + lives;
+  if (startBtn) startBtn.style.display = "none";
+  draw();
+}
